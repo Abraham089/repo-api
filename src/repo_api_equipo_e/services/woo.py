@@ -45,3 +45,12 @@ def get_woo_orders():
         return response.json()
     except Exception as e:
         return {"error": str(e)}
+    
+def get_woo_customers():
+    try:
+        response = wcapi.get("customers")
+        
+        return response.json()
+
+    except Exception as e:
+        return {"error": str(e)}
