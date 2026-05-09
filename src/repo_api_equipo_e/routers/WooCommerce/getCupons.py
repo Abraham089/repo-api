@@ -36,3 +36,21 @@ def get_woo_cupons():
 
 
     return response.json()
+
+
+@router.get("/cupons/{coupon_id}")
+def get_woo_cupons(coupon_id: int):
+    
+    response = wcapi.get(f"coupons/{coupon_id}")
+
+    if response.status_code == 200:
+        cupones = response.json()
+        print(f"--- Se encontraron {len(cupones)} cupones ---")
+
+        for c in cupones:
+            print(f"ID: {c['id']} | Nombre: {c['name']} | Codigo: {c['code']} | Descuento: {c['amount']} | Tipo: {c['discount_type']} | Fecha de expiracion: {c['date_expires']}")
+    else:
+        print(f"Error {response.status_code}: {response.text}")
+
+
+    return response.json()
