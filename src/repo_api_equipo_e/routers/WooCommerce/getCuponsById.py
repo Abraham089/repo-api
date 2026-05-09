@@ -18,15 +18,25 @@ wcapi = API(
     timeout=20
 )
 
-@router.get("/coupons/{coupon_id}")
-def get_coupon_by_id(coupon_id: int):
-  response = wcapi.get(f"cupons/{coupon_id}")
+@router.get("/coupons/code/{coupon_code}")
+def get_coupon_by_code(coupon_code: str):
+  response = wcapi.get(
+        "coupons",
+        params={"code": coupon_code}
+    )
+  
+  coupons = response.json()
+
+  if not coupons:
+    raise HTTPException(status_code=404, detail="Cupón no encontrado")
+  
+  coupon = coupons[0]  # Asumimos que el código de cupón es único y tomamos el primero
 
   if response.status_code == 200:
-    print(f"ID: {response.json()['id']} | Tipo: {response.json()['type']} | Importe: ${response.json()['amount']} | Descripción: {response.json()['description']}")
+    print(f"Code: {coupon['code']} | ID: {coupon['id']} | Tipo: {coupon['discount_type']} | Importe: ${coupon['amount']} | Descripción: {coupon['description']}")
 
   else:
     print(f"Error {response.status_code}: {response.text}")
 
 
-  return response.json()
+  return coupon
