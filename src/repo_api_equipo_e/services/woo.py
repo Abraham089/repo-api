@@ -46,6 +46,15 @@ def get_woo_orders():
     except Exception as e:
         return {"error": str(e)}
     
+def get_woo_customers():
+    try:
+        response = wcapi.get("customers")
+        
+        return response.json()
+
+    except Exception as e:
+        return {"error": str(e)}
+      
 def create_customer(client: RequestedCustomer):
     payload = client.model_dump()
     response = wcapi.post("customers", payload)
