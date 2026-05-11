@@ -1,4 +1,3 @@
-
 from urllib import response
 
 from fastapi import APIRouter, HTTPException
@@ -37,3 +36,17 @@ def get_woo_products():
 
 
     return response.json()
+
+@router.get("/customers/{customer_id}")
+def get_customer_by_id(customer_id: int):
+   
+    response = wcapi.get(f"customers/{customer_id}")
+
+    if response.status_code == 200:
+        customer = response.json()
+        print(f"--- Cliente encontrado: {customer['id']} | Nombre: {customer['first_name']} {customer['last_name']} ---")
+    else:
+        print(f"Error {response.status_code}: {response.text}")
+        raise HTTPException(status_code=response.status_code, detail=response.text)
+
+    return customer
