@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from . import syncProducts, createProduct, createOrder, obtainOrders, getProducts, getCuponsById,  getCustomers, createCustomer, getCupons
+from . import syncProducts, createProduct, createOrder, obtainOrders, getProducts, createCustomer, getCupons, getCuponsById,  getCustomers
 
 router = APIRouter(prefix="/woo", tags=["WooCommerce"])
 
