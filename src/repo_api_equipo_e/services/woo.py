@@ -1,6 +1,6 @@
 from woocommerce import API
 import os
-from ..models.woo import RequestedOrder
+from ..models.woo import RequestedOrder, RequestedCustomer
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -54,3 +54,13 @@ def get_woo_customers():
 
     except Exception as e:
         return {"error": str(e)}
+      
+def create_customer(client: RequestedCustomer):
+    payload = client.model_dump()
+    response = wcapi.post("customers", payload)
+    if response.status_code not in [200, 201]:
+        raise Exception(
+            f"Error al crear el cliente {client.first_name} en WooCommerce: "
+            f"{response.status_code} - {response.text}"
+        )
+    return response.json()
