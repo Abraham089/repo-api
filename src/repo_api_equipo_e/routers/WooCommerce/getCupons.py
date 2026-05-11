@@ -30,7 +30,7 @@ def get_woo_cupons():
         print(f"--- Se encontraron {len(cupones)} cupones ---")
 
         for c in cupones:
-            print(f"ID: {c['id']} | Nombre: {c['name']} | Codigo: {c['code']} | Descuento: {c['amount']} | Tipo: {c['discount_type']} | Fecha de expiracion: {c['date_expires']}")
+            print(f"ID: {c['id']} | Codigo: {c['code']} | Descuento: {c['amount']} | Tipo: {c['discount_type']} | Fecha de expiracion: {c['date_expires']}")
     else:
         print(f"Error {response.status_code}: {response.text}")
 
@@ -48,7 +48,7 @@ def get_woo_cupons(coupon_id: int):
         print(f"--- Se encontraron {len(cupones)} cupones ---")
 
         for c in cupones:
-            print(f"ID: {c['id']} | Nombre: {c['name']} | Codigo: {c['code']} | Descuento: {c['amount']} | Tipo: {c['discount_type']} | Fecha de expiracion: {c['date_expires']}")
+            print(f"ID: {c['id']} | Codigo: {c['code']} | Descuento: {c['amount']} | Tipo: {c['discount_type']} | Fecha de expiracion: {c['date_expires']}")
     else:
         print(f"Error {response.status_code}: {response.text}")
 
