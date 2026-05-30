@@ -1,7 +1,4 @@
-from urllib import response
-
 from fastapi import APIRouter, HTTPException
-from requests import models
 from repo_api_equipo_e.services.odoo import fetch_odoo_products
 from woocommerce import API
 import os
@@ -22,20 +19,25 @@ wcapi = API(
     
 @router.get("/products")
 def get_woo_products():
-    
-    response = wcapi.get("products", params={"per_page": 10})
+    response = wcapi.get("products", params={"per_page": 10, "fields": "name,id,description,price"})
 
     if response.status_code == 200:
         productos = response.json()
         print(f"--- Se encontraron {len(productos)} productos ---")
 
-        for p in productos:
-            print(f"ID: {p['id']} | Nombre: {p['name']} | Precio: ${p['price']}")
+        # Filtrar solo los campos especificados
+        campos = ["id", "name", "description", "price"]
+        productos_filtrados = [
+            {campo: p.get(campo) for campo in campos if campo in p}
+            for p in productos
+        ]
+
+        for p in productos_filtrados:
+            print(f"ID: {p['id']} | Nombre: {p['name']} | Descripción: {p['description']} | Precio: ${p['price']}")
+        return productos_filtrados
     else:
         print(f"Error {response.status_code}: {response.text}")
-
-
-    return response.json()
+        raise HTTPException(status_code=response.status_code, detail=response.text)
 
 @router.get("/customers/{customer_id}")
 def get_customer_by_id(customer_id: int):
