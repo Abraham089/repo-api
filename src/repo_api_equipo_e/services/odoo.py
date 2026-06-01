@@ -7,7 +7,7 @@ def fetch_odoo_products():
         db, uid, password,
         "product.product", "search_read",
         [[]],
-        {"fields": ["id", "name", "default_code", "list_price"]}
+        {"fields": ["id", "name", "default_code", "list_price", "categ_id"]}
     )
 
     return products
