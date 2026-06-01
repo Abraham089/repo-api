@@ -7,8 +7,7 @@ router = APIRouter()
 BASE_URL = os.getenv("PRESTASHOP_BASE_URL", "").rstrip("/")
 API_KEY = os.getenv("PRESTASHOP_API_KEY", "")
 
-
-@router.get("/product/{sku}")
+@router.get("/products/{sku}")
 async def get_product_by_sku(sku: str):
 
     if not BASE_URL or not API_KEY:

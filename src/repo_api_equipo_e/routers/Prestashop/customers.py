@@ -86,6 +86,6 @@ async def get_customers():
     # SUCCESS
     return {
         "status": "success",
-        "data": customers[0],
+        "data": customers,
         "errors": []
     }
