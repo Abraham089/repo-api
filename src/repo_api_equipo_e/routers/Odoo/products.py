@@ -8,7 +8,7 @@ router = APIRouter()
 def get_products():
     return fetch_odoo_products()
 
-@router.post("products")
+@router.post("/products")
 def create_products():
     new_products = [
         {'name': 'Teclado Mecánico Custom 60%', 'list_price': 125.0, 'type': 'product', 'qty': 15, 'categ_id': 1},
@@ -36,7 +36,7 @@ def create_products():
         {'name': 'Tira LED RGB Inteligente 5m', 'list_price': 20.0, 'type': 'product', 'qty': 45, 'categ_id': 4},
     ]
     execution_report = create_odoo_products(new_products)
-    
+
     if len(execution_report["errors"]) == len(new_products):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
