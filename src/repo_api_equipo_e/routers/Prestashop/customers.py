@@ -82,10 +82,23 @@ async def get_customers():
                 }
             ]
         }
+    
+    cleaned_customers = []
+    for customer in customers:
+        composed_name = customer.get("name", "")
+        name = composed_name[0].get("value") if isinstance(composed_name, list) else composed_name
+        
+        cleaned_customers.append({
+            "id": customer.get("id"),
+            "nombre": customer.get("firstname"),
+            "apellido": customer.get("lastname"),
+            "passwd": customer.get("passwd"),
+            "email": customer.get("email")
+        })
 
     # SUCCESS
     return {
         "status": "success",
-        "data": customers,
+        "data": cleaned_customers,
         "errors": []
     }
